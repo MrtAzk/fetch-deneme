@@ -20,6 +20,20 @@ function App() {
     onSuccess:(value)=>{console.log(value)}
   })
 
+  const handleDelete= async (id)=>{
+    try {
+       await PostService.remove(id);
+      postList.setList((prev)=>prev.filter((item)=>item.id!==id)
+      )
+    } catch (error) {
+      console.log(error)
+      
+    }
+  
+
+
+  }
+
   return (
     <>
     {list.status==="loading"&&"Loading..."}
@@ -45,6 +59,7 @@ function App() {
             id={item.id}
             title={item.title}
             body={item.body}
+            onDelete={()=>handleDelete(item.id)}
 
           />
         )
